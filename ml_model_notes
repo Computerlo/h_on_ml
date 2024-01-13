@@ -1,0 +1,68 @@
+1.overall GD:When using Gradient Descent, you should ensure that all features
+have a similar scale (e.g., using Scikit-Learn’s StandardScaler
+class), or else it will take much longer to converge.
+
+2.Draw back of linear algorithm:Both the Normal Equation and the SVD approach get very slow
+when the number of features grows large (e.g., 100,000). On the
+positive side, both are linear with regards to the number of instan‐
+ces in the training set (they are O(m)), so they handle large training
+sets efficiently, provided they can fit in memory.
+
+3.Batch GD:When the cost function is convex and its slope does not change abruptly (as is the
+case for the MSE cost function), Batch Gradient Descent with a fixed learning rate
+will eventually converge to the optimal solution, but you may have to wait a while: it
+can take O(1/ε) iterations to reach the optimum within a range of ε depending on the
+shape of the cost function. If you divide the tolerance by 10 to have a more precise
+solution, then the algorithm may have to run about 10 times longer.
+
+4.Stoc-hasting:Chooses random point,train on huge training sets, since only one instance needs to be in memory at each iteration Stochastic Gradient Descent has a better
+chance of finding the global minimum than Batch Gradient Descent does.When using Stochastic Gradient Descent, the training instances
+must be independent and identically distributed (IID), to ensure
+that the parameters get pulled towards the global optimum, on
+average. A simple way to ensure this is to shuffle the instances dur‐
+ing training (e.g., pick each instance randomly, or shuffle the train‐
+ing set at the beginning of each epoch). If you do not do this, for
+example if the instances are sorted by label, then SGD will start by
+optimizing for one label, then the next, and so on, and it will not
+settle close to the global minimum.
+
+5.Mini-Batch: Performance boost from hardware optimization of matrix operations, especially
+when using GPUs.It has less persentage to stuck in local minima compared to Full_Batch.
+So, mini_batch for faster computation, whereas sgd's speed depends on faith, as it work 
+on random point.
+
+6.Polynomial Regression:Note that when there are multiple features, Polynomial Regression is capable of find‐
+ing relationships between features (which is something a plain Linear Regression
+model cannot do).PolynomialFeatures(degree=d) transforms an array containing n
+features into an array containing (n + d)! / (d!n!)
+features, where n! is the
+factorial of n, equal to 1 × 2 × 3 × ⋯ × n. Beware of the combinato‐
+rial explosion of the number of features!
+
+7.The Bias/Variance Tradeof:
+
+An important theoretical result of statistics and Machine Learning is the fact that a
+model’s generalization error can be expressed as the sum of three very different
+errors:
+Bias
+This part of the generalization error is due to wrong assumptions, such as assum‐
+ing that the data is linear when it is actually quadratic. A high-bias model is most
+likely to underfit the training data.10
+Variance
+This part is due to the model’s excessive sensitivity to small variations in the
+training data. A model with many degrees of freedom (such as a high-degree pol‐
+ynomial model) is likely to have high variance, and thus to overfit the training
+data.
+Irreducible error
+This part is due to the noisiness of the data itself. The only way to reduce this
+part of the error is to clean up the data (e.g., fix the data sources, such as broken
+sensors, or detect and remove outliers).
+Increasing a model’s complexity will typically increase its variance and reduce its bias.
+Conversely, reducing a model’s complexity increases its bias and reduces its variance.
+This is why it is called a tradeoff.
+
+
+8.Reducing overfitting:a good way to reduce overfitting is to regularize the
+model (i.e., to constrain it): the fewer degrees of freedom it has, the harder it will be
+for it to overfit the data. For example, a simple way to regularize a polynomial model
+is to reduce the number of polynomial degrees.
