@@ -1,35 +1,7 @@
-syntax = "proto3";
-message Person {
-  string name = 1;
-  int32 id = 2;
-  repeated string email = 3;
+
+syntax="proto3";
+message Person{
+    string name=1;
+    int32 id=2;
+    repeated string email=3;
 }
-
-# Overwriting person.proto
-
-# And let's compile it (the --descriptor_set_out and --include_imports options are
-# only required for the tf.io.decode_proto() example below):
-
-!protoc person.proto --python_out=. --descriptor_set_out=person.desc --include_imports
-
-!ls person*
-
-
-from person_pb2 import Person
-
-person = Person(name="Al", id=123, email=["a@b.com"])  # create a Person
-print(person)  # display the Person
-
-
-person.name  # read a field
-
-
-person.name = "Alice"  # modify a field
-
-person.email[0]  # repeated fields can be accessed like arrays
-
-
-person.email.append("c@d.com")  # add an email address
-
-s = person.SerializeToString()  # serialize to a byte string
-s
